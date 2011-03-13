@@ -1,9 +1,9 @@
 var express = require('express');
 var _ = require('underscore');
 	// herald = require('./herald');
+var herald = require('./herald.js');
 	
 var app = express.createServer();	
-var herald = require('./herald.js');
 
 herald.connect(app);
 

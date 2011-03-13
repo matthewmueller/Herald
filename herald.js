@@ -73,7 +73,7 @@ var Herald = {
 			
 			self._listeners.emit('publish', arguments);
 		};
-		console.log(self._users);	
+
 		self.response(to, self._users[socketID], message, next);
 		
 		return self;
@@ -96,7 +96,6 @@ var Herald = {
 			client.on('disconnect', function() {
 				// Remove subscriber
 				delete self._users[client.sessionId];
-				
 			});
 
 		});

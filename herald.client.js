@@ -137,7 +137,6 @@ emit : function(obj, event, args){
 removeEvent : function(obj, event) {
     if(this.isString(obj)) { event = obj; obj = this; }
     if(this.isUndefined(obj._events)) return;
-    console.log("remove");
     delete obj._events[event];
 }
 });
