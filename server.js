@@ -11,7 +11,6 @@ herald.connect(app);
 herald.response = function(to, from, message, next) {
 	
 	_.delay(function() {
-		console.log(from);
 		next( from, to, message);
 	}, 2000);
 	
