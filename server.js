@@ -8,13 +8,22 @@ var herald = require('./herald.js');
 herald.connect(app);
 
 // Overwrite the response function
-// herald.response = function(to, from, message, next) {
-// 	
-// 	_.delay(function() {
-// 		next(from, message);
-// 	}, 2000);
-// 	
-// };
+herald.response = function(to, from, message, next) {
+	
+	_.delay(function() {
+		console.log(from);
+		next( from, to, message);
+	}, 2000);
+	
+};
+
+herald.on('subscribe', function(args) {
+	console.log(args);
+});
+
+herald.on('publish', function(args) {
+	console.log(args);
+});
 
 app.configure(function() {
 	
@@ -30,4 +39,8 @@ app.listen(8000);
 
 app.get('/', function(req, res) {
 	res.render('index.html');
+});
+
+app.get('/publish.html', function(req, res) {
+	res.render('publish.html');
 });

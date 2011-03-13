@@ -21,10 +21,11 @@ var Herald = {
 			self._groups[group].push(socketID); // Add socketID to subscriber
 			self._users[socketID] = from; // Map socketID to mongoID
 			
-			// Allow for this to be extended
-			self._listeners.emit('subscribe', args);	
 					
 		}, self);
+
+		// Allow for this to be extended
+		self._listeners.emit('subscribe', args);	
 
 		return self;
 	},
@@ -50,7 +51,7 @@ var Herald = {
 			}
 			
 		}, self);
-		
+		// Make the total list of subscribers unique
 		subscribers = _(subscribers).uniq();
 		
 		var next = function() {
@@ -59,7 +60,7 @@ var Herald = {
 			message = self._formatMessage.apply(self, messageArgs);
 
 			var clients = self.socket.clients;
-			// delete clients[from]; // Delete myself
+			delete clients[socketID]; // Delete myself
 
 			_(subscribers).each(function(subscriber) {
 				if(_.isUndefined(clients[subscriber])) {
@@ -69,8 +70,10 @@ var Herald = {
 					clients[subscriber].send(message);
 				}
 			}, self);
-		};
 			
+			self._listeners.emit('publish', arguments);
+		};
+		console.log(self._users);	
 		self.response(to, self._users[socketID], message, next);
 		
 		return self;
@@ -98,8 +101,7 @@ var Herald = {
 
 
 		return this;
-	},
-	
+	},	
 	
 	_formatMessage: function() {
 		var args = _.toArray(arguments);
@@ -119,27 +121,5 @@ var Herald = {
 	
 };
 
-_.extend(Herald);
 
 module.exports = Herald;
-
-
-// function(app) {
-// 	// _.extend(Herald, process.EventEmitter());
-// 	return Herald;
-// };
-// function(app) {
-// 
-// 	return Herald;
-// 	
-// // DNode(function(client, con) {
-// // 		this.say = function() {
-// // 			console.log("hi");
-// // 		};
-// // 		
-// // 		this.names = function(callback) {
-// // 			console.log('wahoo');
-// // 		};
-// // 	}).listen(app);
-// 	
-// };

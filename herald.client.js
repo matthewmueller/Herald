@@ -68,6 +68,14 @@ var Herald = {
 		return self;
 	},
 	
+	on: function(event, callback) {
+		_(this).on(event, callback);
+	},
+	
+	emit: function(event, args) {
+		_(this).emit(event, args);
+	},
+	
 	_readCookie : function(name) {
 		var nameEQ = name + "=";
 		var ca = document.cookie.split(';');
@@ -85,26 +93,6 @@ var Herald = {
 		var action = args.splice(0, 1)[0];
 
 		return {action : action, body : args};
-	},
-	
-	// 
-	// _formatMessage : function(action, to, message) {
-	// 	if(!action) return this;
-	// 	message = message || [];
-	// 	to = to || "";
-	// 	if(_.isString(message)) message = [message];
-	// 
-	// 	message = {'action' :action, 'to' : to, 'from': this.me, 'message' : message};
-	// 
-	// 	return message;
-	// },
-	// 
-	on: function(event, callback) {
-		_(this).on(event, callback);
-	},
-	
-	emit: function(event, args) {
-		_(this).emit(event, args);
 	}
 };
 

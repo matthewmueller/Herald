@@ -11,7 +11,7 @@
 			Herald.ready(function() {
 				// Turn the green light on / Allow input
 				
-				Herald.subscribe(['wahoo', 'zz']);			
+				Herald.publish(['wahoo', 'zz'], 'zomommg');
 			});
 			
 			Herald.response(function(to, from, message) {
@@ -26,6 +26,6 @@
 		
 	</head>
 	<body>
-		hi
+		Publish
 	</body>
 </html>
