@@ -36,12 +36,12 @@ var Herald = {
 	},
 	
 	// On a publish event being sent through by a client
-	publish : function(to, message, socketID) {
+	publish : function(to, from, message, socketID) {
 		var self = this;
 		if(!self._connected) return self;
 		message = message || "";
 		if(_.isString(to)) to = [to];
-
+		self._users[socketID] = from;
 		var subscribers = [];
 		
 		_(to).each(function(group) {
@@ -65,7 +65,7 @@ var Herald = {
 			_(subscribers).each(function(subscriber) {
 				if(_.isUndefined(clients[subscriber])) {
 					delete clients[subscriber];
-					
+					delete self._users[socketID];
 				} else {
 					clients[subscriber].send(message);
 				}
@@ -95,6 +95,8 @@ var Herald = {
 
 			client.on('disconnect', function() {
 				// Remove subscriber
+				delete self._users[client.sessionId];
+				
 			});
 
 		});

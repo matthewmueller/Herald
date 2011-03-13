@@ -2,7 +2,7 @@ var Herald = {
 	_groups : {},
 	_connected : false,
 	socketID: null,
-	me : null,
+	me : '',
 	
 	subscribe : function(groups) {
 		var self = this;
@@ -27,7 +27,7 @@ var Herald = {
 		message = message || "";
 		if(_.isString(to)) to = [to];
 
-		message = self._formatMessage('publish', to, message);
+		message = self._formatMessage('publish', to, self.me, message);
 		self.socket.send(message);
 		
 		return self;
