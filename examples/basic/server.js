@@ -17,6 +17,7 @@ herald.response = function(to, from, message, next) {
 };
 
 herald.on('subscribe', function(args) {
+	console.log("From subscribe event");
 	console.log(args);
 });
 
