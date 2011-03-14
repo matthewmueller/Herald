@@ -1,1 +1,1 @@
-require('./lib/herald.js');
+module.exports = require('./lib/herald.js');
