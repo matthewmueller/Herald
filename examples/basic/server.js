@@ -1,7 +1,7 @@
 var express = require('express');
 var _ = require('underscore');
 	// herald = require('./herald');
-var herald = require('./herald.js');
+var herald = require('../../lib/herald.js');
 	
 var app = express.createServer();	
 
@@ -37,9 +37,9 @@ app.configure(function() {
 app.listen(8000);
 
 app.get('/', function(req, res) {
-	res.render('index.html');
+	res.send(require('fs').readFileSync('./index.html'));
 });
 
 app.get('/publish.html', function(req, res) {
-	res.render('publish.html');
+	res.send(require('fs').readFileSync('./publish.html'));
 });
